@@ -4,7 +4,7 @@
 
 [类前缀][年月][序号:1-9/A-Z]-[描述缩写/不超过6个字母]
 
-例如：D1810A-2PD， 2PD=2PointDistance / 两点间距离
+例如：D1810A-2PD，D=demo，2PD=2PointDistance / 两点间距离
 
 目录/索引：
 
