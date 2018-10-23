@@ -2,9 +2,9 @@ class 坐标:
     def __init__(此,横,纵):
         此.x, 此.y = 横,纵
 
-    def __repr__(此):  # 显示坐标; 例： print 坐标(1,1)
+    def __repr__(i):  # 显示坐标; 例： print 坐标(1,1)
         print(
-            "X="+此.x+" Y="+此.y)
+            "X="+i.x+" Y="+i.y)
 
 def 计算(A:坐标,B:坐标):  # 这里用了py3.5+的type hint
     开方 = __import__('math').sqrt
