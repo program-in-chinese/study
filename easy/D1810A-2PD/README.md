@@ -7,3 +7,8 @@
 备注：这里先规定距离是标量/不带方向
 
 在线测试：https://repl.it/@s6dyl/Debug1021?language=java
+
+APL：
+```APL
+0.5*2*(5-1)+2*7-2
+```
