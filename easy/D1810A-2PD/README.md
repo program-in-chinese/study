@@ -8,9 +8,9 @@
 
 在线测试：https://repl.it/@s6dyl/Debug1021?language=java
 
-APL: https://tryapl.org/?a=(((5-1)*2)+(7-2)*2)*0.5&run
+APL: [(+/ (5-1)(7-2)*2)*0.5](https://tryapl.org/)
 
 Kdb+/q：
 ```q
-{sqrt ((y[0]-x[0])xexp 2)+(y[1]-x[1])xexp 2}[(1;2);(5;7)]
+{sqrt 0+/( y[0]-x[0];y[1]-x[1] )xexp 2}[(1;2);(5;7)]
 ```
