@@ -4,22 +4,13 @@ import traceback
 
 class ZhPyConsole(InteractiveConsole):
     """
-    Wrapper around Python and filter input/output to the shell
+    封装Python控制台, 对输出进行转换
     """
     字典 = {
         " is not defined": "未定义",
         "NameError": "命名错误",
         "name ": "命名"
         }
-
-    def push(self, line):
-        self.buffer.append(line)
-        source = "\n".join(self.buffer)
-
-        more = self.runsource(source, self.filename)
-        if not more:
-            self.resetbuffer()
-        return more
 
     def showtraceback(self):
         sys.last_type, sys.last_value, last_tb = ei = sys.exc_info()
@@ -40,25 +31,12 @@ class ZhPyConsole(InteractiveConsole):
         finally:
             last_tb = ei = None
 
-def interpreter(lang=None):
+def 解释器(lang=None):
     """
-    zhpy interpreter
+    zhpy解释器
     """
-    try:
-        import readline
-    except ImportError:
-        pass
-    else:
-        #you could change this line to bind another key instead tab.
-        readline.parse_and_bind("tab: complete")
-    con = ZhPyConsole()
-    banner = 'zhpy in %s on top of Python %s'%(sys.platform,
-                                                  sys.version.split()[0])
-
-    # able to import modules in current directory
-    sys.path.insert(0, '')
-    con.interact(banner)
-
+    控制台 = ZhPyConsole()
+    控制台.interact()
 
 if __name__=="__main__":
-    interpreter()
+    解释器()
