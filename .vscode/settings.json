@@ -1,0 +1,12 @@
+{
+  "python.unitTest.unittestArgs": [
+    "-v",
+    "-s",
+    "1-基础/控制台",
+    "-p",
+    "test*.py"
+  ],
+  "python.unitTest.pyTestEnabled": false,
+  "python.unitTest.nosetestsEnabled": false,
+  "python.unitTest.unittestEnabled": true
+}

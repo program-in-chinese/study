@@ -4,7 +4,7 @@
 
 ### 语法错误
 参考: https://docs.python.org/3/tutorial/errors.html#syntax-errors
-```
+```python
 >>> while True print('好啊')
   File "<stdin>", line 1
     while True print('好啊')
@@ -16,7 +16,7 @@ SyntaxError: invalid syntax
 ### 运行时错误
 
 #### 除零错误(ZeroDivisionError)
-```
+```python
 >>> 10 * (1/0)
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
@@ -26,7 +26,7 @@ ZeroDivisionError: division by zero
 
 #### 命名错误(NameError)
 - 实例1
-```
+```python
 >>> 学
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
@@ -35,7 +35,7 @@ NameError: name '学' is not defined
 ```
 - 实例2
 参考: https://stackoverflow.com/questions/43778685/nameerror-free-variable-type-referenced-before-assignment-in-enclosing-scop?rq=1
-```
+```python
 >>> def foo():
 ...     def bar():
 ...             print(type)
@@ -53,7 +53,7 @@ NameError: free variable 'type' referenced before assignment in enclosing scope
 
 #### 本地变量未定义错误(UnboundLocalError)
 参考: https://stackoverflow.com/questions/18002794/local-variable-referenced-before-assignment-in-python
-```
+```python
 >>> def 上课():
 ...     学生 = 学生*2
 ... 
@@ -68,7 +68,7 @@ UnboundLocalError: local variable '学生' referenced before assignment
 #### 类型错误(TypeError)
 参考: https://docs.python.org/3.6/tutorial/errors.html#exceptions
 但与文档不一致"TypeError: Can't convert 'int' object to str implicitly"
-```
+```python
 >>> '2'+2
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
@@ -76,7 +76,7 @@ TypeError: must be str, not int
 类型错误: 不能将整数自动转换为字符串
 ```
 
-```
+```python
 >>> '2'/'1'
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
@@ -92,6 +92,15 @@ Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 TypeError: can't multiply sequence by non-int of type 'str'
 类型错误: 不能用非整数的类型--字符串对序列进行累乘
+```
+
+#### 属性错误(AttributeError)
+```python
+>>> [1,2,3].length
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: 'list' object has no attribute 'length'
+属性错误: 'list'个体没有'length'属性
 ```
 
 ### Python编译器源码
