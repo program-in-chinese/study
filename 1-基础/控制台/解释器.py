@@ -3,7 +3,7 @@ import re
 import sys
 import traceback
 
-class ZhPyConsole(InteractiveConsole):
+class 中文报错控制台(InteractiveConsole):
     """
     封装Python控制台, 对输出进行转换
     """
@@ -52,6 +52,8 @@ class ZhPyConsole(InteractiveConsole):
             return re.sub(r"TypeError: unsupported operand type\(s\) for \*\* or pow\(\): '(.*)' and '(.*)'", r"类型错误: 不支持**或pow()的操作数: '\1'和'\2'", 原始信息)
         elif re.match(r"TypeError: can't multiply sequence by non-int of type '(.*)'", 原始信息):
             return re.sub(r"TypeError: can't multiply sequence by non-int of type '(.*)'", r"类型错误: 不能用非整数的类型--'\1'对序列进行累乘", 原始信息)
+        elif re.match(r'TypeError: can only concatenate list \(not "(.*)"\) to list', 原始信息):
+            return re.sub(r'TypeError: can only concatenate list \(not "(.*)"\) to list', r'类型错误: 只能将list(而非"\1")联结到list', 原始信息)
         else:
             return 原始信息
 
@@ -59,7 +61,7 @@ def 解释器(lang=None):
     """
     zhpy解释器
     """
-    控制台 = ZhPyConsole()
+    控制台 = 中文报错控制台()
     控制台.interact()
 
 if __name__=="__main__":

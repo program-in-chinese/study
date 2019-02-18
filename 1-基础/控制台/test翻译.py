@@ -1,9 +1,9 @@
 import unittest
-from 解释器 import ZhPyConsole
+from 解释器 import 中文报错控制台
 
 class test功能(unittest.TestCase):
 
-    控制台 = ZhPyConsole()
+    控制台 = 中文报错控制台()
     
     def test_报错信息(self):
         self.assertEqual(self.控制台.中文化("Traceback (most recent call last):"), "回溯 (最近的调用在最后):")
@@ -16,6 +16,7 @@ class test功能(unittest.TestCase):
         self.assertEqual(self.控制台.中文化("TypeError: unsupported operand type(s) for /: 'str' and 'str'"), "类型错误: 不支持/的操作数: 'str'和'str'")
         self.assertEqual(self.控制台.中文化("TypeError: unsupported operand type(s) for ** or pow(): 'str' and 'int'"), "类型错误: 不支持**或pow()的操作数: 'str'和'int'")
         self.assertEqual(self.控制台.中文化("TypeError: can't multiply sequence by non-int of type 'str'"), "类型错误: 不能用非整数的类型--'str'对序列进行累乘")
+        self.assertEqual(self.控制台.中文化('TypeError: can only concatenate list (not "str") to list'), '类型错误: 只能将list(而非"str")联结到list')
         self.assertEqual(self.控制台.中文化("AttributeError: 'list' object has no attribute 'length'"), "属性错误: 'list'个体没有'length'属性")
 
 if __name__ == '__main__':
