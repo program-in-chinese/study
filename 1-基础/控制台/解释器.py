@@ -7,12 +7,32 @@ class 中文报错控制台(InteractiveConsole):
     """
     封装Python控制台, 对输出进行转换
     """
-    字典 = {
-        "Traceback (most recent call last):": "回溯 (最近的调用在最后):",
-        "SyntaxError: invalid syntax": "语法错误: 不正确的语法",
-        "ZeroDivisionError: division by zero": "除零错误: 不能被0除",
-        "TypeError: must be str, not int": "类型错误: 不能将整数自动转换为字符串"
-        }
+    def showsyntaxerror(self, filename=None):
+        type, value, tb = sys.exc_info()
+        sys.last_type = type
+        sys.last_value = value
+        sys.last_traceback = tb
+        if filename and type is SyntaxError:
+            # Work hard to stuff the correct filename in the exception
+            try:
+                msg, (dummy_filename, lineno, offset, line) = value.args
+            except ValueError:
+                # Not the format we expect; leave it alone
+                pass
+            else:
+                # Stuff in the right filename
+                value = SyntaxError(msg, (filename, lineno, offset, line))
+                sys.last_value = value
+        if sys.excepthook is sys.__excepthook__:
+            行 = traceback.format_exception_only(type, value)
+            汉化行 = []
+            for 某行 in 行:
+                汉化行.append(self.中文化(某行))
+            self.write(''.join(汉化行))
+        else:
+            # If someone has set sys.excepthook, we let that take precedence
+            # over self.write
+            sys.excepthook(type, value, tb)
 
     def showtraceback(self):
         sys.last_type, sys.last_value, 回溯信息 = 运行信息 = sys.exc_info()
@@ -32,8 +52,6 @@ class 中文报错控制台(InteractiveConsole):
             回溯信息 = 运行信息 = None
 
     def 中文化(self, 原始信息):
-        if 原始信息 in self.字典:
-            return self.字典[原始信息]
         return self.模式替换(原始信息)
 
     # 参考: https://docs.python.org/3/library/re.html#re.sub
@@ -54,6 +72,14 @@ class 中文报错控制台(InteractiveConsole):
             return re.sub(r"TypeError: can't multiply sequence by non-int of type '(.*)'", r"类型错误: 不能用非整数的类型--'\1'对序列进行累乘", 原始信息)
         elif re.match(r'TypeError: can only concatenate list \(not "(.*)"\) to list', 原始信息):
             return re.sub(r'TypeError: can only concatenate list \(not "(.*)"\) to list', r'类型错误: 只能将list(而非"\1")联结到list', 原始信息)
+        elif re.match(r"Traceback \(most recent call last\):", 原始信息):
+            return re.sub(r"Traceback \(most recent call last\):", r"回溯 (最近的调用在最后):", 原始信息)
+        elif re.match(r"SyntaxError: invalid syntax", 原始信息):
+            return re.sub(r"SyntaxError: invalid syntax", r"语法错误: 不正确的语法", 原始信息)
+        elif re.match(r"ZeroDivisionError: division by zero", 原始信息):
+            return re.sub(r"ZeroDivisionError: division by zero", r"除零错误: 不能被0除", 原始信息)
+        elif re.match(r"TypeError: must be str, not int", 原始信息):
+            return re.sub(r"TypeError: must be str, not int", r"类型错误: 不能将整数自动转换为字符串", 原始信息)
         else:
             return 原始信息
 

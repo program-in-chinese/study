@@ -92,6 +92,11 @@ Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 TypeError: can't multiply sequence by non-int of type 'str'
 类型错误: 不能用非整数的类型--字符串对序列进行累乘
+>>> [1]+'2'
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+TypeError: can only concatenate list (not "str") to list
+类型错误: 只能将list(而非"str")联结到list
 ```
 
 #### 属性错误(AttributeError)
@@ -124,9 +129,27 @@ AttributeError: 'list' object has no attribute 'length'
                          Py_TYPE(a)->tp_name, Py_TYPE(b)->tp_name);
 ```
 
-```python
+```c
     PyErr_Format(PyExc_TypeError,
                  "Can't convert '%.100s' object to str implicitly",
+```
+
+```c
+            PyErr_Format(PyExc_TypeError,
+                         "can only concatenate deque (not \"%.200s\") to deque",
+                         other->ob_type->tp_name);
+```
+
+```c
+        PyErr_Format(PyExc_TypeError,
+             "can only concatenate tuple (not \"%.200s\") to tuple",
+                 Py_TYPE(bb)->tp_name);
+```
+
+```c
+        PyErr_Format(PyExc_TypeError,
+                     "can only concatenate str (not \"%.200s\") to str",
+                     right->ob_type->tp_name);
 ```
 
 #### 已有实例
@@ -147,6 +170,12 @@ AttributeError: 'list' object has no attribute 'length'
                  op_name,
                  v->ob_type->tp_name,
                  w->ob_type->tp_name);
+```
+
+```c
+        PyErr_Format(PyExc_TypeError,
+                  "can only concatenate list (not \"%.200s\") to list",
+                  bb->ob_type->tp_name);
 ```
 
 ```c
