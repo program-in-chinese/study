@@ -1,30 +1,26 @@
 from code import InteractiveConsole
-from pyparsing import srange, Word
+from pyparsing import srange, Word, quotedString
 import re
 import sys
 import traceback
 
-def 关键字替换(s,l,token):
-    """search worddict to match keywords
+关键字词典 = {
+    "如果":"if",
+    "否则":"else",
+    "打印":"print"
+}
 
-    if not in keyword, replace the chinese variable/argument/
-    function name/class name/method name to a variable with prefix 'p'
-    """
+def 关键字替换(s,l,token):
     字段 = token[0]
-    if 字段 == "如果":
-        return "if"
-    elif 字段 == "否则":
-        return "else"
-    elif 字段 == "打印":
-        return "print"
-    else:
-        return token
+    if 字段 in 关键字词典:
+        英文 = 关键字词典[字段]
+    return 英文
 
 中文字符 = srange(r"[\0x0080-\0xfe00]")
-chineseWord = Word(中文字符)
-chineseWord.setParseAction(关键字替换)
+中文词汇 = Word(中文字符)
+中文词汇.setParseAction(关键字替换)
 
-pythonWord = chineseWord
+python词 = quotedString | 中文词汇
 
 class 中文报错控制台(InteractiveConsole):
     """
@@ -99,7 +95,7 @@ class 中文报错控制台(InteractiveConsole):
         return 原始信息
 
     def 转换(self, 中文代码):
-        return pythonWord.transformString(中文代码)
+        return python词.transformString(中文代码)
 
     def push(self, line):
         self.buffer.append(line)
