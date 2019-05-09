@@ -1,7 +1,30 @@
 from code import InteractiveConsole
+from pyparsing import srange, Word
 import re
 import sys
 import traceback
+
+def 关键字替换(s,l,token):
+    """search worddict to match keywords
+
+    if not in keyword, replace the chinese variable/argument/
+    function name/class name/method name to a variable with prefix 'p'
+    """
+    字段 = token[0]
+    if 字段 == "如果":
+        return "if"
+    elif 字段 == "否则":
+        return "else"
+    elif 字段 == "打印":
+        return "print"
+    else:
+        return token
+
+中文字符 = srange(r"[\0x0080-\0xfe00]")
+chineseWord = Word(中文字符)
+chineseWord.setParseAction(关键字替换)
+
+pythonWord = chineseWord
 
 class 中文报错控制台(InteractiveConsole):
     """
@@ -74,6 +97,23 @@ class 中文报错控制台(InteractiveConsole):
             if re.match(英文模式, 原始信息):
                 return re.sub(英文模式, self.字典[英文模式], 原始信息)
         return 原始信息
+
+    def 转换(self, 中文代码):
+        return pythonWord.transformString(中文代码)
+
+    def push(self, line):
+        self.buffer.append(line)
+        source = "\n".join(self.buffer)
+        #windows patch
+        encoding = sys.stdout.encoding
+        if encoding == 'cp950':
+            encoding = ''
+
+        more = self.runsource(self.转换(source),
+                            self.filename)
+        if not more:
+            self.resetbuffer()
+        return more
 
 def 解释器(lang=None):
     """
