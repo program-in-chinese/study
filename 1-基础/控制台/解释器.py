@@ -10,11 +10,12 @@ import traceback
     "打印":"print"
 }
 
-def 关键字替换(s,l,token):
+def 关键字替换(原字符串, 位置, token):
     字段 = token[0]
     if 字段 in 关键字词典:
-        英文 = 关键字词典[字段]
-    return 英文
+        return 关键字词典[字段]
+    else:
+        return 字段
 
 中文字符 = srange(r"[\0x0080-\0xfe00]")
 中文词汇 = Word(中文字符)
@@ -97,16 +98,15 @@ class 中文报错控制台(InteractiveConsole):
     def 转换(self, 中文代码):
         return python词.transformString(中文代码)
 
-    def push(self, line):
-        self.buffer.append(line)
-        source = "\n".join(self.buffer)
+    def push(self, 行):
+        self.buffer.append(行)
+        源码 = "\n".join(self.buffer)
         #windows patch
-        encoding = sys.stdout.encoding
-        if encoding == 'cp950':
-            encoding = ''
+        编码 = sys.stdout.encoding
+        if 编码 == 'cp950':
+            编码 = ''
 
-        more = self.runsource(self.转换(source),
-                            self.filename)
+        more = self.runsource(self.转换(源码), self.filename)
         if not more:
             self.resetbuffer()
         return more

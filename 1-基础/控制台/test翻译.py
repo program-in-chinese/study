@@ -23,6 +23,7 @@ class test功能(unittest.TestCase):
         self.assertEqual(self.控制台.转换("如果 True"), "if True")
         self.assertEqual(self.控制台.转换("打印('吃了么')"), "print('吃了么')")
         self.assertEqual(self.控制台.转换("打印('打印')"), "print('打印')")
+        self.assertEqual(self.控制台.转换("学"), "学")
 
 if __name__ == '__main__':
     unittest.main()
