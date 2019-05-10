@@ -7,6 +7,12 @@ import traceback
 关键字词典 = {
     "如果":"if",
     "否则":"else",
+    "定义":"def",
+    "尝试":"try",
+    "善后":"finally",
+    "提出":"raise",
+    "捕获":"except",
+    "返回":"return",
     "打印":"print"
 }
 
