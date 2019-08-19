@@ -5,7 +5,7 @@ KB = 1000
 兆 = 1000 * KB
 GB = 1000 * 兆
 
-阈值 = 10# * 兆
+阈值 = 200 * 兆
 
 各文件大小 = {}
 各路径大小 = {}
@@ -29,11 +29,11 @@ def 遍历目录(起始路径 = '.'):
 
     return 总量
 
-def sort_by_value(d): 
-    items=d.items() 
-    backitems=[[v[1],v[0]] for v in items] 
-    backitems.sort(reverse = True)
-    return backitems
+def 按值排序(字典): 
+    列表 = [[值[1], 值[0]] for 值 in 字典.items()]
+    # 大的在前
+    列表.sort(reverse = True)
+    return 列表
 
 def 格式化输出(字节数):
     if 字节数 > GB:
@@ -44,7 +44,7 @@ def 格式化输出(字节数):
         return "<1兆: " + str(字节数) + " 字节"
 
 def 排序并输出(未排序大小表):
-    已排序表 = sort_by_value(未排序大小表)
+    已排序表 = 按值排序(未排序大小表)
     for 文件信息 in 已排序表:
         大小 = 文件信息[0]
         if 大小 > 阈值:
