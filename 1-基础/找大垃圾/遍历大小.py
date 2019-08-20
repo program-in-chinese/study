@@ -29,6 +29,7 @@ def 遍历目录(起始路径 = '.'):
 
     return 总量
 
+# 参考: https://www.cnblogs.com/linyawen/archive/2012/03/15/2398292.html
 def 按值排序(字典): 
     列表 = [[值[1], 值[0]] for 值 in 字典.items()]
     # 大的在前
