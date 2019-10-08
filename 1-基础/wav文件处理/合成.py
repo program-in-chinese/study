@@ -1,4 +1,5 @@
 import wave
+from xpinyin import Pinyin
 
 # 参考: https://blog.csdn.net/qq_39516859/article/details/79819276
 def 从wav文件读取信息(文件名):
@@ -17,11 +18,13 @@ def 从wav文件读取信息(文件名):
 
 # 参考: https://blog.csdn.net/zzZ_CMing/article/details/81739193
 def 合成(文字):
+    拼音库 = Pinyin()
     帧 = b''
     格式信息 = {}
-    for 字 in 文字:
+    for 单字 in 文字:
         # TODO: 多系统/
-        格式信息 = 从wav文件读取信息("单字/" + 字 + ".wav")
+        拼音 = 拼音库.get_pinyin(单字, tone_marks='numbers')
+        格式信息 = 从wav文件读取信息("单字/" + 拼音 + ".wav")
         帧 += 格式信息["帧"]
 
     文件 = wave.open("输出/" + 文字 + ".wav", 'wb')
@@ -34,4 +37,3 @@ def 合成(文字):
     print("*"*10, "合成结束\n")
 
 合成("我是中国人")
-合成("我是小学生")
