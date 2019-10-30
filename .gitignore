@@ -8,3 +8,6 @@ erl_crash.dump
 *.beam
 /config/*.secret.exs
 **/__pycache__
+
+1-基础/wav文件处理/输出
+1-基础/图片处理/生成gif/*.gif
