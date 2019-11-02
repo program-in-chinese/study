@@ -1,12 +1,13 @@
 from xml.dom import minidom
 
+# TODO: sharp支持
 对应 = {'C': "哆", 'D': "来", 'E': "咪", 'F': "发", 'G': "嗦", 'A': "啦", 'B': "西"}
 
 def 取子元素(节点, tag名):
     return 节点.getElementsByTagName(tag名)[0].childNodes[0].nodeValue
 
 # MusicXML文件是网上资源, 需另行下载
-xmldoc = minidom.parse('彩云追月.xml')
+xmldoc = minidom.parse('OnePiece_MinatoMura.xml')
 原音符列表 = xmldoc.getElementsByTagName('note')
 print(len(原音符列表))
 全长 = 0
@@ -15,7 +16,14 @@ print(len(原音符列表))
 
 所有音符 = []
 for 音符 in 原音符列表:
-    音高 = 音符.getElementsByTagName('pitch')[0]
+    pitch节点 = 音符.getElementsByTagName('pitch')
+    if len(pitch节点) == 0:
+        # 休止符？
+        if len(音符.getElementsByTagName('rest')) == 1:
+            所有音符.append({"音": None, "音长": 取子元素(音符, 'duration'), "音阶": None})
+            continue
+    print(音符.attributes['default-x'].value)
+    音高 = pitch节点[0]
     音 = 取子元素(音高, 'step')
     音长 = 取子元素(音符, 'duration')
     音阶 = int(取子元素(音高, 'octave'))
@@ -35,7 +43,11 @@ if 音域["高"] - 音域["低"] > 2:
 else:
     音域位移 = 音域["低"] - 1
 
+# 处理休止
 for 音符 in 所有音符:
-    全谱 += "常量." + 对应[音符["音"]] + str(音符["音阶"] - 音域位移) + ", " + 音符["音长"] + ", "
+    if 音符["音"] == None:
+        全谱 += "None" + ", " + 音符["音长"] + ", "
+    else:
+        全谱 += "常量." + 对应[音符["音"]] + str(音符["音阶"] - 音域位移) + ", " + 音符["音长"] + ", "
 
 print(全谱)
