@@ -51,8 +51,8 @@ class 除(二元运算符):
 
 ### 语法分析器部分
 
-pg = ParserGenerator(
-    # A list of all token names, accepted by the parser.
+分析器母机 = ParserGenerator(
+    # 所有词名
     ['数', '左括号', '右括号',
      '加', '减', '乘', '除'
     ],
@@ -64,36 +64,36 @@ pg = ParserGenerator(
     ]
 )
 
-@pg.production('expression : 数')
+@分析器母机.production('表达式 : 数')
 def expression_number(p):
     # p is a list of the pieces matched by the right hand side of the
     # rule
     return 数(int(p[0].getstr()))
 
-@pg.production('expression : 左括号 expression 右括号')
+@分析器母机.production('表达式 : 左括号 表达式 右括号')
 def expression_parens(p):
     return p[1]
 
-@pg.production('expression : expression 加 expression')
-@pg.production('expression : expression 减 expression')
-@pg.production('expression : expression 乘 expression')
-@pg.production('expression : expression 除 expression')
+@分析器母机.production('表达式 : 表达式 加 表达式')
+@分析器母机.production('表达式 : 表达式 减 表达式')
+@分析器母机.production('表达式 : 表达式 乘 表达式')
+@分析器母机.production('表达式 : 表达式 除 表达式')
 def expression_binop(p):
-    left = p[0]
-    right = p[2]
+    左 = p[0]
+    右 = p[2]
     if p[1].gettokentype() == '加':
-        return 加(left, right)
+        return 加(左, 右)
     elif p[1].gettokentype() == '减':
-        return 减(left, right)
+        return 减(左, 右)
     elif p[1].gettokentype() == '乘':
-        return 乘(left, right)
+        return 乘(左, 右)
     elif p[1].gettokentype() == '除':
-        return 除(left, right)
+        return 除(左, 右)
     else:
-        raise AssertionError('Oops, this should not be possible!')
+        raise AssertionError('不应出现')
 
-parser = pg.build()
+分析器 = 分析器母机.build()
 
-print(parser.parse(分词器.lex('1 + 1')).求值())
+print(分析器.parse(分词器.lex('1 + 1')).求值())
 
-print(parser.parse(分词器.lex('1 + 2 * 3')).求值())
+print(分析器.parse(分词器.lex('(1 + 2) * 3')).求值())
