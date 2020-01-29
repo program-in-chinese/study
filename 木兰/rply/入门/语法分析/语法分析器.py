@@ -65,20 +65,20 @@ class 除(二元运算符):
 )
 
 @分析器母机.production('表达式 : 数')
-def expression_number(p):
+def 数表达式(p):
     # p is a list of the pieces matched by the right hand side of the
     # rule
     return 数(int(p[0].getstr()))
 
 @分析器母机.production('表达式 : 左括号 表达式 右括号')
-def expression_parens(p):
+def 括号表达式(p):
     return p[1]
 
 @分析器母机.production('表达式 : 表达式 加 表达式')
 @分析器母机.production('表达式 : 表达式 减 表达式')
 @分析器母机.production('表达式 : 表达式 乘 表达式')
 @分析器母机.production('表达式 : 表达式 除 表达式')
-def expression_binop(p):
+def 二元运算表达式(p):
     左 = p[0]
     右 = p[2]
     if p[1].gettokentype() == '加':
@@ -96,4 +96,4 @@ def expression_binop(p):
 
 print(分析器.parse(分词器.lex('1 + 1')).求值())
 
-print(分析器.parse(分词器.lex('(1 + 2) * 3')).求值())
+print(分析器.parse(分词器.lex('(1 + 2) * 3 - 4')).求值())
