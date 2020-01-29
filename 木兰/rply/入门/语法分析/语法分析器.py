@@ -65,29 +65,29 @@ class 除(二元运算符):
 )
 
 @分析器母机.production('表达式 : 数')
-def 数表达式(p):
-    # p is a list of the pieces matched by the right hand side of the
-    # rule
-    return 数(int(p[0].getstr()))
+def 数表达式(片段):
+    # 匹配规则右部的片段列表
+    return 数(int(片段[0].getstr()))
 
 @分析器母机.production('表达式 : 左括号 表达式 右括号')
-def 括号表达式(p):
-    return p[1]
+def 括号表达式(片段):
+    return 片段[1]
 
 @分析器母机.production('表达式 : 表达式 加 表达式')
 @分析器母机.production('表达式 : 表达式 减 表达式')
 @分析器母机.production('表达式 : 表达式 乘 表达式')
 @分析器母机.production('表达式 : 表达式 除 表达式')
-def 二元运算表达式(p):
-    左 = p[0]
-    右 = p[2]
-    if p[1].gettokentype() == '加':
+def 二元运算表达式(片段):
+    左 = 片段[0]
+    右 = 片段[2]
+    运算符 = 片段[1]
+    if 运算符.gettokentype() == '加':
         return 加(左, 右)
-    elif p[1].gettokentype() == '减':
+    elif 运算符.gettokentype() == '减':
         return 减(左, 右)
-    elif p[1].gettokentype() == '乘':
+    elif 运算符.gettokentype() == '乘':
         return 乘(左, 右)
-    elif p[1].gettokentype() == '除':
+    elif 运算符.gettokentype() == '除':
         return 除(左, 右)
     else:
         raise AssertionError('不应出现')
