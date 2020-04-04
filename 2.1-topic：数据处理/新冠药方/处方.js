@@ -150,7 +150,7 @@ const 气阴两虚证 = Object.freeze({
 const 中草药图解 = Object.freeze({
 "人参": 1,
 "大青叶": 2,
-"大黄 ": 3,
+"大黄": 3,
 "山茱萸": 4,
 "山药": 5,
 "山楂": 6,
@@ -276,8 +276,8 @@ for (方 of 处方) {
     //console.log("check: " + 药 + " " + (药 in 中草药图解))
     if (! (药名 in 中草药图解)) {
       var 原名 = 取原名(药名)
-      if (!原名) {
-        console.log(药名)
+      if (!原名 || !(原名 in 中草药图解)) {
+        console.log(原名)
       }
     }
   }
