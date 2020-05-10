@@ -1,3 +1,7 @@
+# 参考： https://stackoverflow.com/questions/35685518/python-write-line-by-line-to-a-text-file
+# https://stackoverflow.com/questions/3277503/how-to-read-a-file-line-by-line-into-a-list
+# https://www.geeksforgeeks.org/reading-writing-text-files-python/
+
 with open('三国志 copy.txt') as f:
     所有行 = f.readlines()
 
