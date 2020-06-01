@@ -2,6 +2,10 @@ import sys, cmd, random
 from ulang.runtime.env import create_globals
 from ulang.parser.core import Parser
 
+# 包内嵌木兰源码文件(作为资源文件), 参考:
+# https://stackoverflow.com/questions/6028000/how-to-read-a-static-file-from-inside-a-python-package
+# https://stackoverflow.com/questions/11848030/how-include-static-files-to-setuptools-python-package/11848281#11848281
+
 try:
     import importlib.resources as pkg_resources
 except ImportError:
@@ -21,11 +25,13 @@ def 调用(源码, 文件名):
     节点 = 分析器.parse(源码, 文件名)
 
     code = compile(节点, 文件名, 'exec')
-    '''
-    exec("aaa=123", globals())
-    print("lev1:", aaa)
-'''
+
     globals = create_globals(argv=[], fname=文件名)
+
+    # 传出变量, 参考:
+    # https://stackoverflow.com/questions/45535284/exec-and-variable-scope
+    # https://stackoverflow.com/questions/1463306/how-does-exec-work-with-locals
+    # https://docs.python.org/3/library/functions.html#exec
     本地量 = {}
     exec(code, globals, 本地量)
     print("我是:", 本地量['回应'])
