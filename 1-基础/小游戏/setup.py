@@ -6,7 +6,7 @@ with open("README.md", encoding="utf-8", mode="r") as readme:
 
 setuptools.setup(
     name="demo-game-guess-number",
-    version="0.0.5",
+    version="0.0.6",
     author="无名",
     author_email="nobodxbodon.github@gmail.com",
     entry_points = {
