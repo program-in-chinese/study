@@ -14,3 +14,4 @@ $ 猜数字
 
 ## 介绍文章
 
+[在 PyPI 发布 Python 纯文字游戏试水——猜数字](https://zhuanlan.zhihu.com/p/141758876)
