@@ -1,2 +1,26 @@
-回应 = (2>1 ? "木兰" : "栏")
-println(回应)
+using Cmd in cmd
+using randrange in random
+using exit in sys
+
+type 猜数字 : Cmd {
+    {
+        // 参考: https://stackoverflow.com/questions/12505047/why-doesnt-an-import-in-an-exec-in-a-function-work
+        extern randrange
+        intro = "木兰想了个 100 之内的数，猜猜是几？"
+        想的 = randrange(100)
+        prompt = '请猜吧: '
+    }
+
+    func $default(行) {
+        extern exit
+        数 = int(行)
+        if 数 == self.想的 {
+            println("中了!")
+            exit()
+        } else {
+            println("太" + (数 > self.想的 ? "大" : "小") + "了!")
+        }
+    }
+}
+
+猜数字().cmdloop()
