@@ -1,13 +1,13 @@
 using Cmd in cmd
-using randrange in random
+using 随机范围数 in 随机数
 using exit in sys
 
 type 猜数字 : Cmd {
     {
         // 参考: https://stackoverflow.com/questions/12505047/why-doesnt-an-import-in-an-exec-in-a-function-work
-        extern randrange
+        extern 随机范围数
         intro = "木兰想了个 100 之内的数，猜猜是几？"
-        想的 = randrange(100)
+        想的 = 随机范围数(100)
         prompt = '请猜吧: '
     }
 
