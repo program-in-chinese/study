@@ -1,11 +1,13 @@
-> good good study, day day up
+因地制宜，在编程中尽可能使用中文进行代码编写和教学。
 
-因地制宜，在编程中尽可能使用中文进行代码编写和教学（demo oriented
+集合了一些日常小工具，其中成文的一部分如下：
 
-流程规范：
-1. 用issue进行提问和讨论
-2. 同样的问题可以有多种实现，举一反三
-3. 在编程环境不受限的情况下，优先使用最合适的方案实现（比如涉及并发的时候，优先用elixir
-4. 编写demo的默认编程语言是python，其次是typescript和APL/[q](https://code.kx.com/q)
-
-在线调试：https://repl.it
+- [新冠中医处方形成知识库过程中发现的药名问题（JavaScript）](https://zhuanlan.zhihu.com/p/119299775)
+- [草蟒 Python 中文 API 与 VS Code 支持尝鲜](https://zhuanlan.zhihu.com/p/102811665)
+- [自制TTS引擎第0.01步-Python实现拼接单字wav文件](https://zhuanlan.zhihu.com/p/85486162)
+- [Python读取解析xml文件，顺便转换为大疆机甲大师可以演奏的乐谱](https://zhuanlan.zhihu.com/p/89736491)
+- [五行Python代码由png图片生成gif文件](https://zhuanlan.zhihu.com/p/89394860)
+- [在 PyPI 发布 Python 纯文字游戏试水——猜数字](https://zhuanlan.zhihu.com/p/141758876)
+- [扩展Python控制台实现中文反馈信息](https://zhuanlan.zhihu.com/p/56411693)
+- [Beyond的歌里最多是"唏嘘"吗? - Python分词+词频](https://zhuanlan.zhihu.com/p/55949416)
+- [RPLY 入门例程中文化](https://zhuanlan.zhihu.com/p/104345761)
