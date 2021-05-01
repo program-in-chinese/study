@@ -6,13 +6,12 @@
 
 tokens = (
     'NUMBER',
-    'PLUS','TIMES'
+    'MINUS'
     )
 
 # Tokens
 
-t_PLUS    = r'\+'
-t_TIMES   = r'\*'
+t_MINUS    = r'\-'
 
 def t_NUMBER(t):
     r'\d+'
@@ -36,19 +35,17 @@ lexer = lex.lex()
 
 # Parsing rules
 
-#precedence = (
-#    ('left','PLUS'),
+precedence = (
+#    ('left','MINUS'),
 #    ('left','TIMES'),
-#    )
+    )
 
 # dictionary of names
 names = { }
 
 def p_expression_binop(t):
-    '''expression : expression PLUS expression
-                  | expression TIMES expression'''
-    if t[2] == '+'  : t[0] = t[1] + t[3]
-    elif t[2] == '*': t[0] = t[1] * t[3]
+    '''expression : expression MINUS expression'''
+    if t[2] == '-'  : t[0] = t[1] - t[3]
 
 def p_expression_number(t):
     'expression : NUMBER'
@@ -60,4 +57,4 @@ def p_error(t):
 import ply.yacc as yacc
 parser = yacc.yacc(debug=True)
 
-parser.parse('2*3+4')
+print(parser.parse('2-3-4'))
