@@ -48,16 +48,17 @@ class 函数求值(BaseBox):
     ],
 )
 
+# 如此规则不置于前，报警 ParserGeneratorWarning: Production '函数求值' is not reachable 且解析出错，详见：
+# https://github.com/alex/rply/issues/108#issuecomment-857163639
+@分析器母机.production('函数求值 : 求 表达式 的 oct 值')
+def 求值表达式(片段):
+    参数 = 片段[1]
+    return 函数求值(oct, 参数)
+
 @分析器母机.production('表达式 : 数')
 def 数表达式(片段):
     # 匹配规则右部的片段列表
     return 数(int(片段[0].getstr()))
-
-# 语法分析/函数.py:61: ParserGeneratorWarning: Production '函数求值' is not reachable
-@分析器母机.production('表达式 : 求 表达式 的 oct 值')
-def 求值表达式(片段):
-    参数 = 片段[1]
-    return 函数求值(oct, 参数)
 
 分析器 = 分析器母机.build()
 
